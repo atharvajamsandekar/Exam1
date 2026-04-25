@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery Effects</title>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+body{
+text-align:center;
+font-family:Arial;
+}
+
+button{
+padding:8px 12px;
+margin:5px;
+border:none;
+background:#007bff;
+color:white;
+border-radius:5px;
+}
+
+#box{
+width:250px;
+height:120px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+margin:20px auto;
+line-height:120px;
+border-radius:10px;
+position:relative;
+font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>jQuery Effects Demo</h2>
+
+<button id="hide">Hide</button>
+<button id="show">Show</button>
+<button id="toggle">Toggle</button>
+<button id="fade">Fade</button>
+<button id="slide">Slide</button>
+<button id="animate">Move</button>
+
+<div id="box">Hello Atharva 🚀</div>
+
+<script>
+$(document).ready(function(){
+
+$("#hide").click(function(){
+$("#box").hide(500);
+});
+
+$("#show").click(function(){
+$("#box").show(500);
+});
+
+$("#toggle").click(function(){
+$("#box").toggle(500);
+});
+
+$("#fade").click(function(){
+$("#box").fadeToggle(500);
+});
+
+$("#slide").click(function(){
+$("#box").slideToggle(500);
+});
+
+$("#animate").click(function(){
+$("#box").animate({top:"100px"},500)
+.animate({top:"0px"},500);
+});
+
+});
+</script>
+
+</body>
+</html>
