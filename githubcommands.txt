@@ -1,0 +1,67 @@
+✅ PART 1: Upload (Push) a text file to GitHub
+Step 1: Open Git Bash
+Press Windows + R
+Type cmd or open Git Bash
+Step 2: Create folder
+mkdir myproject
+cd myproject
+Step 3: Create a text file
+echo Hello World > file.txt
+Step 4: Initialize Git
+git init
+Step 5: Add file
+git add file.txt
+Step 6: Commit file
+git commit -m "First commit"
+Step 7: Connect to GitHub
+Go to GitHub
+Click New Repository
+Create repo (example: myproject)
+
+Now copy your repo URL like:
+
+https://github.com/yourname/myproject.git
+Step 8: Link repo
+git remote add origin https://github.com/yourname/myproject.git
+Step 9: Push file
+git branch -M main
+git push -u origin main
+
+👉 Now your file is uploaded to GitHub ✅
+
+✅ What you do in PART 2 (Pull / Download)
+
+👉 In Part 1, you uploaded file to GitHub
+👉 In Part 2, you download that same file again into a new folder
+
+🎯 Simple understanding
+Part 1 = Upload (Push)
+Part 2 = Download (Pull/Clone)
+🔹 Step-by-step (Do exactly this)
+Step 1: Go outside your old folder
+cd ..
+Step 2: Create new folder
+mkdir newfolder
+cd newfolder
+
+👉 This is a fresh empty folder
+
+Step 3: Copy your GitHub repo link
+
+From GitHub
+Example:
+
+https://github.com/yourname/myproject.git
+Step 4: Clone (Download)
+git clone https://github.com/yourname/myproject.git
+Step 5: Open the downloaded folder
+cd myproject
+Step 6: Check file
+dir
+
+👉 You will see:
+
+file.txt
+🎉 That’s it!
+
+👉 You have pulled/downloaded the same file successfully
