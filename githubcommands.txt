@@ -69,3 +69,4 @@ file.txt
 
 http://localhost/session_practical/create_session.php
 http://localhost/phpmyadmin
+http://localhost/session_practical/insert.php
