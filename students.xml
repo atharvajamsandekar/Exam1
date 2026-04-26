@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+
+<students>
+    <student>
+        <rollno>1</rollno>
+        <name>Atharva</name>
+        <course>Computer</course>
+        <marks>85</marks>
+    </student>
+
+    <student>
+        <rollno>2</rollno>
+        <name>Rahul</name>
+        <course>IT</course>
+        <marks>78</marks>
+    </student>
+
+    <student>
+        <rollno>3</rollno>
+        <name>Priya</name>
+        <course>Computer</course>
+        <marks>90</marks>
+    </student>
+</students>
