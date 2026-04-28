@@ -1,0 +1,228 @@
+Implementation of First Come First Served Disk Scheduling Algorithm. 
+
+code-
+
+# FCFS Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+
+total_movement = 0
+
+print("Order of execution:")
+print(head, end=" -> ")
+
+for req in requests:
+    print(req, end=" -> ")
+    total_movement += abs(head - req)
+    head = req
+
+print("\n\nTotal Head Movement =", total_movement)
+
+Implementation of Shortest Seek Time First Disk Scheduling Algorithm
+
+code-
+
+# SSTF Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+
+total_movement = 0
+sequence = []
+
+while requests:
+    # find closest request
+    nearest = min(requests, key=lambda x: abs(x - head))
+    
+    sequence.append(nearest)
+    total_movement += abs(head - nearest)
+    
+    head = nearest
+    requests.remove(nearest)
+
+print("Order:", sequence)
+print("Total Head Movement =", total_movement)
+
+ Implementation of SCAN (Elevator) Disk Scheduling Algorithm.
+
+code-
+
+# SCAN Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+disk_size = 200
+direction = "left"   # left means towards 0
+
+left = []
+right = []
+
+for r in requests:
+    if r < head:
+        left.append(r)
+    else:
+        right.append(r)
+
+left.sort(reverse=True)
+right.sort()
+
+sequence = []
+
+if direction == "left":
+    sequence = left + [0] + right
+else:
+    sequence = right + [disk_size - 1] + left
+
+total = 0
+current = head
+
+for r in sequence:
+    total += abs(current - r)
+    current = r
+
+print("Order:", sequence)
+print("Total Head Movement =", total)
+
+ Implementation of C-SCAN Disk Scheduling Algorithm. 
+
+code-
+
+# C-SCAN Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+disk_size = 200
+
+left = []
+right = []
+
+for r in requests:
+    if r < head:
+        left.append(r)
+    else:
+        right.append(r)
+
+left.sort()
+right.sort()
+
+sequence = []
+
+# Move towards right side first
+sequence = right + [disk_size - 1] + [0] + left
+
+total = 0
+current = head
+
+for r in sequence:
+    total += abs(current - r)
+    current = r
+
+print("Order:", sequence)
+print("Total Head Movement =", total)
+
+Implementation of LOOK Disk Scheduling Algorithm.
+
+code-
+
+# LOOK Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+direction = "left"   # left or right
+
+left = []
+right = []
+
+for r in requests:
+    if r < head:
+        left.append(r)
+    else:
+        right.append(r)
+
+left.sort(reverse=True)
+right.sort()
+
+sequence = []
+
+if direction == "left":
+    sequence = left + right
+else:
+    sequence = right + left
+
+total = 0
+current = head
+
+for r in sequence:
+    total += abs(current - r)
+    current = r
+
+print("Order:", sequence)
+print("Total Head Movement =", total)
+
+Implementation of C-LOOK Disk Scheduling Algorithm. 
+
+code-
+
+# C-LOOK Disk Scheduling
+
+requests = [98, 183, 37, 122, 14, 124, 65, 67]
+head = 53
+
+left = []
+right = []
+
+for r in requests:
+    if r < head:
+        left.append(r)
+    else:
+        right.append(r)
+
+left.sort()
+right.sort()
+
+# move only in one direction (right side first)
+sequence = right + left
+
+total = 0
+current = head
+
+for r in sequence:
+    total += abs(current - r)
+    current = r
+
+print("Order:", sequence)
+print("Total Head Movement =", total)
+
+Implementation of file managing operations.
+
+code-
+
+# File Managing Operations
+
+# 1. Create and write file
+file = open("sample.txt", "w")
+file.write("Hello, this is OS practical file.\n")
+file.write("File management operations are performed.\n")
+file.close()
+
+print("File created and data written successfully.")
+
+# 2. Read file
+file = open("sample.txt", "r")
+print("\nFile Content:")
+print(file.read())
+file.close()
+
+# 3. Append file
+file = open("sample.txt", "a")
+file.write("New line added using append operation.\n")
+file.close()
+
+print("Data appended successfully.")
+
+# 4. Read again
+file = open("sample.txt", "r")
+print("\nUpdated File Content:")
+print(file.read())
+file.close()
