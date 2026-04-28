@@ -1,0 +1,442 @@
+Exp 2 DDL Commands:
+
+
+mysql> create Database Ott;
+
+
+mysql> use Ott;
+
+mysql> create table Student(roll int,name varchar(20),age int);
+
+
+mysql> insert into Student values(1,"Salman",20);
+
+
+mysql> select * from Student;
+
+1 row in set (0.01 sec)
+
+mysql> alter table Student add deptname varchar(20);
+
+mysql> describe Student;
+
+
+mysql> select * from Student;
+
+
+
+mysql> alter table Student drop deptname;
+
+
+mysql> select * from Student;
+
+
+mysql> rename table Student to Stud;
+
+
+mysql> select * from Stud;
+
+
+mysql> truncate table Stud;
+
+
+mysql> describe Stud;
+
+
+mysql> select * from Stud;
+
+
+mysql> drop table Stud;
+
+
+mysql> drop database Ott;
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+Exp 3   DML Commands:
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(roll int,name varchar(20),dept varchar(20),sal int);
+
+insert into Stud values(7,"MSD","CSE",100);
+insert into Stud values(18,"Virat","Civil",10);
+insert into Stud values(21,"Hardik","AIDS",50);
+
+
+select name,dept from Stud;
+
+select name,sal from Stud where roll=21;
+
+select * from Stud;
+
+update Stud set name="Chiku" where roll=18;
+
+select * from Stud;
+
+delete from Stud where sal=10;
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+Exp 4  Pattern Matching & Aggregate functions:
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(roll int,name varchar(20),dept varchar(20),sal int);
+
+insert into Stud values(7,"Mahi","CSE",100);
+insert into Stud values(18,"Virat","Civil",10);
+insert into Stud values(21,"Hardik","AIDS",50);
+insert into Stud values(16,"Max","IT",1000);
+
+select * from Stud;
+
+// Aggregate Functions:
+
+select sum(sal) from Stud;
+
+select max(sal) from Stud;
+
+select min(sal) from Stud;
+
+select avg(sal) from Stud;
+
+select count(*) from Stud;
+
+
+// Pattern Matching :
+
+
+select name from Stud where name like "M%";          //(staring letter M)
+
+select name from Stud where name like "%k";         //(lasting letter k)
+
+select name from Stud where name like "___";       //(no of characters)
+
+select * from Stud where name like "_a%";         //(second letter a)
+
+select name from Stud where name like "%a%";      //(a letter between )
+
+select name from Stud where name like "M%x";      //(staring with M and ending with x)
+
+
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+Exp 5  Join Operations  & union,intersect,difference :
+
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table A(id int,name varchar(20));
+
+insert into A values(1,"Rahul");
+insert into A values(2,"Amit");
+insert into A values(3,"Sneha");
+insert into A values(4,"Neha");
+
+select * from A;
+
+create table B(id int,course varchar(20));
+
+insert into B values(1,"AIDS");
+insert into B values(2,"CSE");
+insert into B values(3,"AIML");
+insert into B values(5,"CYBER");
+
+
+select A.id,A.name,B.course from A inner join B on A.id = B.id;
+
+select A.id, A.name, B.course from A left join B on A.id = B.id;
+
+select A.id, A.name, B.course from A right join B on A.id = B.id;
+
+select * from A natural join B;
+
+select A.id, A.name, B.course from A left join B on A.id = B.id 
+union 
+select A.id, A.name, B.course from A right join B on A.id = B.id;
+
+
+// Relational Algebra operators.
+
+
+select id from A union select id from B;
+
+select id from A intersect select id from B;
+
+select A.id from A inner join B on A.id = B.id;
+
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+
+Exp 6  Nested Queries in SQL:
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(id int,name varchar(20),mark int,div varchar(20));
+
+insert into Stud values(1,"Rahul",85,"A");
+insert into Stud values(2,"Amit",95,"A");
+insert into Stud values(3,"Sneha",89,"B");
+insert into Stud values(4,"Neha",99,"B");
+insert into Stud values(5,"Virat",60,"A");
+insert into Stud values(6,"Pawan",70,"B");
+
+select * from Stud;
+
+
+
+// Single row Subquery:
+
+
+select name from Stud where mark = (select max(mark) from Stud);
+
+
+// Multi row Subquery:
+
+
+select name from Stud where mark in(select mark from Stud where mark>80);
+
+
+// Correlated Subquery:
+
+select name from Stud S1 where mark > (select min(mark) from Stud S2 where S1.div = S2.div);
+
+
+
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+
+Exp 7 Create Views in SQL:
+
+
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(id int,name varchar(20),mark int,div varchar(20));
+
+insert into Stud values(1,"Rahul",85,"A");
+insert into Stud values(2,"Amit",95,"A");
+insert into Stud values(3,"Sneha",89,"B");
+insert into Stud values(4,"Neha",99,"B");
+insert into Stud values(5,"Virat",60,"A");
+insert into Stud values(6,"Pawan",70,"B");
+
+select * from Stud;
+
+
+create view Studv as select name,id from Stud where div="A";
+
+select * from Studv;
+
+update Studv set name="Rakesh" where id=1;
+
+delete from Studv where name="Virat";
+
+drop view Studv;
+
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+
+Exp 8 Procedure & Trigger:
+
+
+// Procedure:
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(id int,name varchar(20),mark int);
+
+insert into Stud values(1,"Rahul",85);
+insert into Stud values(2,"Amit",95);
+insert into Stud values(3,"Neha",99);
+
+
+select * from Stud;
+
+
+
+mysql> delimiter $$
+mysql> create procedure Highmarks()
+    -> begin
+    -> select * from Stud where mark>80;
+    -> end $$
+
+
+
+// Triggers:
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(id int,name varchar(20),mark int,result varchar(20));
+
+insert into Stud values(1,"Rahul",85,"Pass");
+insert into Stud values(2,"Amit",95,"Pass");
+insert into Stud values(3,"Neha",99,"Pass");
+insert into Stud values(4,"Dagdu",20,"Fail");
+
+select * from Stud;
+
+
+mysql> delimiter $$
+mysql> create trigger t1
+    -> before insert on Stud
+    -> for each row
+    -> begin
+    -> if new.mark<35 then
+    -> set new.result="Fail";
+    -> else
+    -> set new.result="Pass";
+    -> end if;
+    -> end $$
+
+
+mysql> delimiter ;
+
+insert into Stud values(5,"Amul"78,"NULL");
+
+insert into Stud values(6,"Tatya"25,"NULL");
+
+select * from Stud;
+
+
+
+*************************************************************************************************************************************************************************************************
+
+
+
+Exp 9 DCL & TCL Commands:
+
+
+
+
+create Database Ott;
+
+use Ott;
+
+create table Stud(id int,name varchar(20),mark int);
+
+insert into Stud values(1,"Rahul",85);
+insert into Stud values(2,"Amit",95);
+insert into Stud values(3,"Neha",99);
+
+select * from Stud;
+
+
+// DCL Commands:
+
+
+select user();
+
+create user peter@localhost identified by "7";
+
+show grants for peter@localhost;
+
+grant select,update on Stud to peter@localhost;
+
+show grants for peter@localhost;
+
+revoke update on Stud from peter@localhost;
+
+show grants for peter@localhost;
+
+
+
+// TCL Commands:
+
+
+(Rollback example):
+
+
+start transcation;
+
+update Stud set mark=50 where id=1;
+
+select * from Stud;
+
+rollback;
+
+select * from Stud;
+
+
+
+(Commit Example):
+
+
+
+start transcation;
+
+update Stud set mark=60 where id=1;
+
+commit;
+
+select * from Stud;
+
+
+
+
+(Savepoint Example):
+
+
+
+start transcation;
+
+savepoint a;
+
+update Stud set mark = 30 where id = 2;
+
+ROLLBACK TO A;
+
+select * from Stud;
+
+*************************************************************************************************************************************************************************************************
