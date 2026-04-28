@@ -1,0 +1,51 @@
+open terminal of linux
+
+write in the terminal 
+
+cat > file1.txt
+
+write the content 
+
+hello
+
+then press control D
+
+cat file1.txt
+
+nano cp_progam.c
+
+text editor opens in the terminal
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main() {
+    int src, dest;
+    char buffer[100];
+    int bytes;
+
+    src = open("file1.txt", O_RDONLY);
+    dest = open("file2.txt", O_WRONLY | O_CREAT, 0644);
+
+    while ((bytes = read(src, buffer, sizeof(buffer))) > 0) {
+        write(dest, buffer, bytes);
+    }
+
+    close(src);
+    close(dest);
+
+    printf("File copied successfully\n");
+
+    return 0;
+}
+
+control 0 
+enter 
+control x
+
+gcc cp_program -o cp_program
+
+./cp_program
+
+cat file2.txt
