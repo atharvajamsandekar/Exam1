@@ -1,0 +1,296 @@
+ Implementation of solution for producer Consumer problem.
+ 
+ code-
+ # Producer Consumer using Semaphore (Simple)
+
+import threading
+import time
+
+buffer = []
+size = 5
+
+empty = threading.Semaphore(size)
+full = threading.Semaphore(0)
+mutex = threading.Semaphore(1)
+
+def producer():
+    for i in range(5):
+        empty.acquire()
+        mutex.acquire()
+
+        buffer.append(i)
+        print("Produced:", i, " Buffer:", buffer)
+
+        mutex.release()
+        full.release()
+        time.sleep(1)
+
+def consumer():
+    for i in range(5):
+        full.acquire()
+        mutex.acquire()
+
+        item = buffer.pop(0)
+        print("Consumed:", item, " Buffer:", buffer)
+
+        mutex.release()
+        empty.release()
+        time.sleep(1)
+
+t1 = threading.Thread(target=producer)
+t2 = threading.Thread(target=consumer)
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
+
+Implementation of Banker’s algorithm for finding sequence of process execution ensuring 
+safe state of system.
+
+code-
+# Banker's Algorithm
+
+processes = 5
+resources = 3
+
+allocation = [
+    [0, 1, 0],
+    [2, 0, 0],
+    [3, 0, 2],
+    [2, 1, 1],
+    [0, 0, 2]
+]
+
+maximum = [
+    [7, 5, 3],
+    [3, 2, 2],
+    [9, 0, 2],
+    [2, 2, 2],
+    [4, 3, 3]
+]
+
+available = [3, 3, 2]
+
+need = []
+for i in range(processes):
+    row = []
+    for j in range(resources):
+        row.append(maximum[i][j] - allocation[i][j])
+    need.append(row)
+
+finish = [False] * processes
+safe_sequence = []
+
+while len(safe_sequence) < processes:
+    found = False
+
+    for i in range(processes):
+        if finish[i] == False:
+            can_run = True
+
+            for j in range(resources):
+                if need[i][j] > available[j]:
+                    can_run = False
+
+            if can_run:
+                for j in range(resources):
+                    available[j] += allocation[i][j]
+
+                safe_sequence.append("P" + str(i))
+                finish[i] = True
+                found = True
+
+    if found == False:
+        print("System is NOT in safe state")
+        break
+
+if len(safe_sequence) == processes:
+    print("System is in SAFE state")
+    print("Safe Sequence:", safe_sequence)
+
+ Implementation of first fit memory allocation algorithm. 
+
+ code-
+
+ # First Fit Memory Allocation
+
+blocks = [100, 500, 200, 300, 600]   # Memory blocks
+process = [212, 417, 112, 426]       # Process sizes
+
+n = len(process)
+m = len(blocks)
+
+allocation = [-1] * n
+
+for i in range(n):
+    for j in range(m):
+        if blocks[j] >= process[i]:
+            allocation[i] = j
+            blocks[j] -= process[i]
+            break
+
+print("Process Size -> Block No")
+
+for i in range(n):
+    if allocation[i] != -1:
+        print(process[i], "->", allocation[i] + 1)
+    else:
+        print(process[i], "-> Not Allocated")
+
+Implementation of best fit memory allocation algorithm.
+
+code-
+
+# Best Fit Memory Allocation
+
+blocks = [100, 500, 200, 300, 600]   # Memory blocks
+process = [212, 417, 112, 426]       # Process sizes
+
+n = len(process)
+m = len(blocks)
+
+allocation = [-1] * n
+
+for i in range(n):
+    best_idx = -1
+
+    for j in range(m):
+        if blocks[j] >= process[i]:
+            if best_idx == -1 or blocks[j] < blocks[best_idx]:
+                best_idx = j
+
+    if best_idx != -1:
+        allocation[i] = best_idx
+        blocks[best_idx] -= process[i]
+
+print("Process Size -> Block No")
+
+for i in range(n):
+    if allocation[i] != -1:
+        print(process[i], "->", allocation[i] + 1)
+    else:
+        print(process[i], "-> Not Allocated")
+
+Implementation of worst fit memory allocation algorithm. 
+
+code-
+
+# Worst Fit Memory Allocation
+
+blocks = [100, 500, 200, 300, 600]   # Memory blocks
+process = [212, 417, 112, 426]       # Process sizes
+
+n = len(process)
+m = len(blocks)
+
+allocation = [-1] * n
+
+for i in range(n):
+    worst_idx = -1
+
+    for j in range(m):
+        if blocks[j] >= process[i]:
+            if worst_idx == -1 or blocks[j] > blocks[worst_idx]:
+                worst_idx = j
+
+    if worst_idx != -1:
+        allocation[i] = worst_idx
+        blocks[worst_idx] -= process[i]
+
+print("Process Size -> Block No")
+
+for i in range(n):
+    if allocation[i] != -1:
+        print(process[i], "->", allocation[i] + 1)
+    else:
+        print(process[i], "-> Not Allocated")
+
+
+Implementation of First in First Out page replacement policy algorithm. 
+
+code-
+
+# FIFO Page Replacement
+
+pages = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3]
+frames = 3
+
+memory = []
+page_faults = 0
+
+for page in pages:
+    if page not in memory:
+        if len(memory) < frames:
+            memory.append(page)
+        else:
+            memory.pop(0)   # remove oldest page
+            memory.append(page)
+        page_faults += 1
+    
+    print("Page:", page, "->", memory)
+
+print("\nTotal Page Faults =", page_faults)
+
+Implementation of Least Recently Used(LRU) page replacement policy algorithm.
+
+code-
+
+# LRU Page Replacement
+
+pages = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3]
+frames = 3
+
+memory = []
+page_faults = 0
+
+for page in pages:
+    if page not in memory:
+        if len(memory) < frames:
+            memory.append(page)
+        else:
+            memory.pop(0)   # remove least recently used
+            memory.append(page)
+        page_faults += 1
+    else:
+        memory.remove(page)
+        memory.append(page)  # make it recently used
+
+    print("Page:", page, "->", memory)
+
+print("\nTotal Page Faults =", page_faults)
+
+Implementation of Most Frequently Used(MFU) page replacement policy algorithm.
+
+code-
+
+# MFU Page Replacement
+
+pages = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3]
+frames = 3
+
+memory = []
+freq = {}   # store frequency of pages
+page_faults = 0
+
+for page in pages:
+    # increase frequency
+    freq[page] = freq.get(page, 0) + 1
+
+    if page not in memory:
+        if len(memory) < frames:
+            memory.append(page)
+        else:
+            # find page with highest frequency
+            mfu_page = max(memory, key=lambda x: freq[x])
+            memory.remove(mfu_page)
+            memory.append(page)
+
+        page_faults += 1
+
+    print("Page:", page, "->", memory)
+
+print("\nTotal Page Faults =", page_faults)
+
+
